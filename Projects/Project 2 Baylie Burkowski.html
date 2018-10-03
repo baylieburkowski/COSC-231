@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <h1> Table of Elevation: </hd>
+    <hr>
+
+  <style>
+      table, th, td{
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      td{
+        text-align: right;
+      }
+
+      th{
+        background-color: white
+      }
+
+      tr:nth-of-type(odd) {
+      background-color:#D3D3D3;
+      }
+
+      tr:nth-of-type(even) {
+      background-color:#ADD8E6;
+      }
+    </style>
+  </head>
+
+  <script>
+		var dates = [ "2018-09-26" , "2018-09-27" , "2018-09-27", "2018-09-27", "2018-09-27"];
+		var times = [ "23:00 UTC" , "00:00 UTC" ,"01:00 UTC", "02:00 UTC", "03:00 UTC" ];
+		var elevation = [ "707.91" , "707.97", "707.99", "708.01", "708.00" ];
+	</script>
+
+  <body>
+    <table id="table" ></table>
+
+    <script>
+      var table1 = document.getElementById( "table");
+      var thead = document.createElement("thead");
+      var table_body = document.createElement( "tbody");
+
+      var head1 = document.createElement("th");
+      head1.appendChild(document.createTextNode( "Date:"));
+      var head2 = document.createElement("th");
+      head2.appendChild(document.createTextNode( "Time:"));
+      var head3 = document.createElement("th");
+      head3.appendChild(document.createTextNode( "Elevation:"));
+
+      thead.appendChild(head1);
+      thead.appendChild(head2);
+      thead.appendChild(head3);
+
+      for (var i=0; i < dates.length; i++){
+        var row = document.createElement("tr");
+
+  			var td1 = document.createElement( "td" );
+  			td1.appendChild( document.createTextNode( dates[i] ));
+  			var td2 = document.createElement( "td" );
+  			td2.appendChild( document.createTextNode( times[i] ));
+  			var td3 = document.createElement( "td" );
+  			td3.appendChild( document.createTextNode( elevation[i] ));
+        td3.setAttribute("title","Elevation= " + elevation[i] );
+
+  			row.appendChild( td1 );
+  			row.appendChild( td2 );
+  			row.appendChild( td3 );
+
+  			table_body.appendChild( row );
+
+  		}
+
+		    table1.appendChild( table_body );
+        table1.appendChild(thead);
+
+      </script>
+  </body>
+<html>
