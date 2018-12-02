@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <h1> Table of Elevation: </hd>
+    <hr>
+
+  <style>
+      table, th, td{
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      td{
+        text-align: right;
+      }
+
+      th{
+        background-color: white
+      }
+
+      tr:nth-of-type(odd) {
+      background-color:#D3D3D3;
+      }
+
+      tr:nth-of-type(even) {
+      background-color:#ADD8E6;
+      }
+
+      form{
+        font-size: 12pt;
+      }
+
+      .yellow{
+        background-color: yellow;
+      }
+
+    </style>
+  </head>
+
+  <script>
+		var dates = [ "2018-09-26" , "2018-09-27" , "2018-09-27", "2018-09-27", "2018-09-27"];
+		var times = [ "23:00 UTC" , "00:00 UTC" ,"01:00 UTC", "02:00 UTC", "03:00 UTC" ];
+		var elevation = [ "707.91" , "707.97", "707.99", "708.01", "708.00" ];
+
+    var i = 0;
+
+	</script>
+
+  <body onload="create_table()">
+    <table id="table" ></table>
+
+    <script>
+      var table1 = document.getElementById( "table");
+
+      var thead = document.createElement("thead");
+      var row_head = document.createElement("tr")
+
+      var head1 = document.createElement("th");
+      head1.appendChild(document.createTextNode( "Date:"));
+      var head2 = document.createElement("th");
+      head2.appendChild(document.createTextNode( "Time:"));
+      var head3 = document.createElement("th");
+      head3.appendChild(document.createTextNode( "Elevation:"));
+
+      row_head.appendChild(head1);
+      row_head.appendChild(head2);
+      row_head.appendChild(head3);
+
+      thead.appendChild(row_head);
+
+      var table_body = document.createElement( "tbody");
+
+
+
+      function create_table(){
+      for (i ; i < dates.length; i++){
+        var row = document.createElement("tr");
+
+  			var td1 = document.createElement( "td" );
+  			td1.appendChild( document.createTextNode( dates[i] ));
+  			var td2 = document.createElement( "td" );
+  			td2.appendChild( document.createTextNode( times[i] ));
+  			var td3 = document.createElement( "td" );
+  			td3.appendChild( document.createTextNode( elevation[i] ));
+        td3.setAttribute("title","Elevation= " + elevation[i] );
+        if (elevation[i] >= 709) {
+          td3.setAttribute("class", "yellow");
+        }
+
+  			row.appendChild( td1 );
+  			row.appendChild( td2 );
+  			row.appendChild( td3 );
+
+  			table_body.appendChild( row );
+
+
+  		   }
+      }
+
+        table1.appendChild(thead);
+		    table1.appendChild( table_body );
+
+      </script>
+
+      <br>
+
+      <script>
+      var the_form = document.createElement("form");
+
+      var name1 = document.createTextNode("Date:");
+      var name2 = document.createTextNode("Time:");
+      var name3 = document.createTextNode("Elevation:");
+
+      var input1 = document.createElement("input");
+      input1.setAttribute("type", "text");
+      input1.setAttribute("name", "date");
+      input1.setAttribute("value","2018-01-01");
+
+      var b1 = document.createElement("br");
+
+      var input2 = document.createElement("input");
+      input2.setAttribute("type", "text");
+      input2.setAttribute("name", "time");
+      input2.setAttribute("value","00:00 UTC")
+
+      var b2 = document.createElement("br");
+
+      var input3 = document.createElement("input");
+      input3.setAttribute("type", "text");
+      input3.setAttribute("name", "elevation");
+      input3.setAttribute("value","709");
+
+      var b3 = document.createElement("br");
+
+      the_form.appendChild(name1);
+      the_form.appendChild(input1);
+      the_form.appendChild(b1);
+
+      the_form.appendChild(name2);
+      the_form.appendChild(input2);
+      the_form.appendChild(b2);
+
+      the_form.appendChild(name3);
+      the_form.appendChild(input3);
+      the_form.appendChild(b3);
+
+      document.body.appendChild(the_form);
+
+      function addRow() {
+  			var newDate = input1.value;
+  			var newTime = input2.value;
+  			var newElev = input3.value;
+
+        dates.push(newDate);
+  			times.push(newTime);
+  			elevation.push(newElev);
+
+  			create_table();
+      }
+
+      var button = document.createElement("button");
+      button.innerHTML= "Submit";
+      button.setAttribute("onclick","addRow()");
+      document.body.appendChild(button);
+
+      </script>
+
+  </body>
+<html>
