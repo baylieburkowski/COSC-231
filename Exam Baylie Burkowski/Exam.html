@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <link rel = "stylesheet" type = "text/css" href = "Exam_style.css"/>
+    <meta charset="utf-8"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
+    <style>
+
+
+    </style>
+    <script>
+        $(document).ready( function(){
+
+            $("a").hover(
+                function(){ //mouseover
+                    var table_num = $(this).html();
+                    $(this).attr("title", "Click for table " + table_num );
+                    <!-- https://www.tutorialspoint.com/jquery/events-hover.htm -->
+                    $(this).css("background-color","black");
+                    $(this).css("color","lightblue");
+                },
+                function(){ //mouseout
+                    $(this).css("background-color","white");
+                    $(this).css("color","blue");
+                    //var table_num = $(this).html();
+                }
+
+            );
+
+            $("a").click( function() {
+		$("table").css("visibility", "hidden");
+		$("#my_list").hide();
+            });
+
+
+
+var xmlhttp = new XMLHttpRequest();
+var url = "https://emunix.emich.edu/~francisi/emich/COSC231/201809FA/lecture_demos/20181210MON/demos/wolf_creek_gages_30days.json";
+
+xmlhttp.onreadystatechange=function() {
+    if ( xmlhttp.readyState == 4 && (xmlhttp.status == 200 || xmlhttp.status == 304 ) ) {
+        myFunction(xmlhttp.responseText);
+    }
+}
+xmlhttp.open("GET", url, true);
+xmlhttp.responseType = 'text';
+xmlhttp.send();
+
+function myFunction(response) {
+    var arr = JSON.parse(response).observations;
+ //alert("arr=[" + arr.length + "]" );
+
+ // delete contents of the tbody in table 01
+ // (i.e., remove existing rows that say 'sample_date', etc.
+ $("#my_table_01 > tbody").empty();
+ // Use JQuery to fill the table with  rows
+ // with the JSON items that were in the file.
+
+		//$("#my_table > tbody").html("");
+		//$("#my_table > tbody").html("");
+
+    var tr;
+		for ( var i=0; i<arr.length; i++ ) {
+      var highlight = arr[i].elev;
+      var cells=highlight>=710?"bgcolor='yellow'":"class='third'";
+      tr = $('<tr/>');
+      tr.append("<td class='columns'>" + arr[i].date + "</td>");
+      tr.append("<td class='columns'>" + arr[i].time + "</td>");
+      tr.append("<td "+cells+ ">" + arr[i].elev + "</td>");
+
+     $('#my_table_01 > tbody').append(tr);
+
+
+		}
+
+
+
+};
+
+        });
+    </script>
+
+
+</head>
+
+<body>
+    <div id="my_header">
+    </div>
+
+    <div id="my_content">
+
+            <table id="my_table_01">
+                <thead>
+                    <tr>
+		      <th colspan="3">Table Elevations</th>
+                    </tr>
+                    <tr>
+                      <th>Date:</th><th>Time:</th><th>Elev:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>sample_date</td>
+                      <td>sample_time</td>
+                      <td>sample_elev</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+
+
+    <a href="#my_list">Top</a>
+
+
+</body>
+</html>

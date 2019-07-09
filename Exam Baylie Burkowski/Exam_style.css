@@ -1,0 +1,23 @@
+@media only screen and (min-width : 1px) and (max-width: 599px) {
+      .columns{
+      background-color:DarkGrey;
+      color: white;
+    }
+      .third{
+      background-color:lightgrey;
+      color: black;
+    }
+
+}
+
+@media only screen and (min-width:600px){
+    .columns{
+    background-color:DarkBlue;
+    color: white;
+  }
+
+    .third{
+    background-color:lightBlue;
+    color: black;
+  }
+}
